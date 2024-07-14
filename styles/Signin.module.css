@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  padding-bottom: 15px;
+}
+
+.logo {
+  width: 50px;
+}
+
+.text {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Style de TextFieldComponent */
+.inputs {
+  color: white;
+  border-color: white !important;
+}
