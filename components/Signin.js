@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function Signin() {
+function Signin(props) {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -50,10 +50,21 @@ function Signin() {
       router.push("/acceuil");
     }
   };
+  const handleClose = async () => {
+    props.closeSignin();
+  };
 
   return (
     <div className={styles.main}>
-      <FontAwesomeIcon icon={faXmark} />
+      <div className={styles.containerIcon}>
+        <FontAwesomeIcon
+          onClick={() => handleClose()}
+          className={styles.icon}
+          icon={faXmark}
+          color="white"
+          size="lg"
+        />
+      </div>
       <img className={styles.logo} src={"/rettiwt.png"} alt="Logo" />
       <p className={styles.text}>Connect to Hackatweet</p>
       <div className={styles.input}>

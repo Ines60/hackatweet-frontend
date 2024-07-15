@@ -1,11 +1,39 @@
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  padding-bottom: 15px;
+  gap: 5px;
+}
+
+.icon {
+  padding-left: 550px;
+  /* padding-bottom: 20px; */
+}
+
+.logo {
+  width: 50px;
+}
+
+.text {
+  color: white;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 .input {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+.btn {
+  border-radius: 50px;
+  border: none;
+  font-weight: 700;
+  height: 30px;
 }

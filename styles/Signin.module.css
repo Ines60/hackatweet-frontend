@@ -1,12 +1,18 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
   border-radius: 15px;
   padding-bottom: 15px;
+  gap: 10px;
+}
+
+.icon {
+  padding-left: 550px;
+  padding-bottom: 20px;
 }
 
 .logo {
@@ -25,8 +31,9 @@
   gap: 15px;
 }
 
-/* Style de TextFieldComponent */
-.inputs {
-  color: white;
-  border-color: white !important;
+.btn {
+  border-radius: 50px;
+  border: none;
+  font-weight: 700;
+  height: 30px;
 }

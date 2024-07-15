@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextFieldComponent from "./TextFieldComponent";
 
-function Signup() {
+function Signup(props) {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -67,17 +67,23 @@ function Signup() {
     }
   };
 
-  //   const handleChange = (e) => {
-  //     const { id, value } = e.target;
-  //     setSignup((prevSignup) => ({
-  //       ...prevSignup,
-  //       [id]: value,
-  //     }));
-  //   };
+  const handleClose = async () => {
+    props.closeSignup();
+  };
 
   return (
     <div className={styles.main}>
-      <FontAwesomeIcon icon={faXmark} />
+      <div className={styles.containerIcon}>
+        <FontAwesomeIcon
+          onClick={() => handleClose()}
+          className={styles.icon}
+          icon={faXmark}
+          color="white"
+          size="lg"
+        />
+      </div>
+      <img className={styles.logo} src={"/rettiwt.png"} alt="Logo" />
+      <p className={styles.text}>Create your Hackatweet account</p>
       <div className={styles.input}>
         <TextFieldComponent
           id="firstName"
@@ -100,7 +106,9 @@ function Signup() {
           size="small"
           valueGetter={signup.password}
         />
-        <button onClick={() => handleSignup()}>S'inscrire</button>
+        <button className={styles.btn} onClick={() => handleSignup()}>
+          S'inscrire
+        </button>
       </div>
     </div>
   );

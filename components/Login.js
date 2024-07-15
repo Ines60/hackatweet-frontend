@@ -21,7 +21,7 @@ function Login() {
   };
 
   const closeSignin = async () => {
-    setSignin(true);
+    setSignin(false);
   };
 
   return (
@@ -51,7 +51,7 @@ function Login() {
             isOpen={signup}
             onRequestClose={closeSignup}
           >
-            <Signup />
+            <Signup closeSignup={closeSignup} />
           </Modal>
           <p className={styles.text}>Already have an account ? </p>
           <button
@@ -65,7 +65,7 @@ function Login() {
             isOpen={signin}
             onRequestClose={closeSignin}
           >
-            <Signin />
+            <Signin closeSignin={closeSignin} />
           </Modal>
         </div>
       </main>
