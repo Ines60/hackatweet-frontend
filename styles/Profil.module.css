@@ -1,0 +1,53 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding-left: 30px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.containerAvatar {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding-bottom: 25px;
+}
+.avatar {
+  border-radius: 50%;
+  width: 60px;
+}
+
+.containerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+
+.firstname {
+  font-weight: 700;
+  color: white;
+}
+
+.username {
+  color: gray;
+}
+
+.btn {
+  width: 75px;
+  height: 25px;
+  border-radius: 50px;
+  border: none;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  font-weight: 700;
+}

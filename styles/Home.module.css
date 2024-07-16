@@ -2,4 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #151d27;
+  height: 100vh;
+  width: 100vw;
+}
+
+.containerProfil {
+  height: 100vh;
+  width: 20vw;
+}
+
+.containerTweet {
+  height: 100vh;
+  width: 50vw;
+}
+
+.containerHastag {
+  height: 100vh;
+  width: 30vw;
+  background-color: yellow;
 }

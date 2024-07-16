@@ -12,13 +12,13 @@ function Signin(props) {
   const router = useRouter();
 
   const [signin, setSignin] = useState({
-    userName: "",
-    password: "",
+    userName: "nes",
+    password: "Lololo.11",
   });
 
   const handleSignin = async () => {
     if (!userName || !password) {
-      alert("Champs manquants !");
+      alert.alert("Champs manquants !");
       return;
     }
 
@@ -34,13 +34,13 @@ function Signin(props) {
       "http://localhost:3000/users/signin",
       options
     ).then((response) => response.json());
-    console.log("response is", response);
+
     if (response.result) {
       dispatch(
         login({
-          firstName: response.firstName,
-          userName: signin.userName,
-          token: response.token,
+          firstname: response.user.firstName,
+          username: signin.userName,
+          token: response.user.token,
         })
       );
       setSignin({

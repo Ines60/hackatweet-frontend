@@ -1,0 +1,49 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-right: 1px gray solid;
+  border-left: 1px gray solid;
+}
+
+.containerText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid white;
+  gap: 15px;
+}
+
+.textarea {
+  border: none;
+  border-bottom: 1px solid white;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+}
+
+.textarea::placeholder {
+  font-size: 25px;
+  color: gray;
+}
+
+.infi {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.containerTweets {
+  overflow-y: auto;
+  scrollbar-color: transparent;
+  scrollbar-width: thin;
+}
+
+.text {
+  color: white;
+}
+/*.tweet {
+} */

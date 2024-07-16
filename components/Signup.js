@@ -6,6 +6,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { login } from "../reducers/user";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -46,12 +47,13 @@ function Signup(props) {
         "http://localhost:3000/users/signup",
         options
       ).then((response) => response.json());
+
       if (response.result) {
         dispatch(
           login({
             firstname: signup.firstName,
-            userName: signup.userName,
-            token: response.token,
+            username: signup.userName,
+            token: response.newUser.token,
           })
         );
         setSignup({
