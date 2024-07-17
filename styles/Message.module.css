@@ -18,3 +18,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+.like {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+}

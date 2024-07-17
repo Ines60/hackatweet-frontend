@@ -33,7 +33,8 @@
   gap: 15px;
   width: 100%;
   justify-content: flex-end;
-  padding-right: 10px;
+  padding-right: 110px;
+  padding-bottom: 40px;
 }
 
 .containerTweets {
@@ -45,5 +46,17 @@
 .text {
   color: white;
 }
-/*.tweet {
-} */
+
+.title {
+  padding-left: 20px;
+}
+
+.btn {
+  width: 80px;
+  border-radius: 40px;
+  height: 25px;
+  border: none;
+  background-color: rgb(29, 99, 211);
+  color: white;
+  font-weight: 700;
+}
