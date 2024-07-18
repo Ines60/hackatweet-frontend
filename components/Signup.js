@@ -89,7 +89,7 @@ function Signup(props) {
       <div className={styles.input}>
         <TextFieldComponent
           id="firstName"
-          label="Prénom"
+          label="Name"
           valueSetter={(value) => setSignup({ ...signup, firstName: value })}
           size="small"
           valueGetter={signup.firstName}
@@ -103,7 +103,7 @@ function Signup(props) {
         />
         <TextFieldComponent
           id="password"
-          label="Mot de passe"
+          label="Password"
           valueSetter={(value) => setSignup({ ...signup, password: value })}
           size="small"
           valueGetter={signup.password}

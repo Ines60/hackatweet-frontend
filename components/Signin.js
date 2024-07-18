@@ -1,6 +1,7 @@
 import styles from "../styles/Signin.module.css";
 import { useDispatch } from "react-redux";
 import TextFieldComponent from "./TextFieldComponent";
+import PasswordComponent from "./PasswordInput";
 import { useRouter } from "next/router";
 import { login } from "../reducers/user";
 import { useState } from "react";
@@ -75,12 +76,13 @@ function Signin(props) {
           size="small"
           valueGetter={signin.userName}
         />
-        <TextFieldComponent
+        <PasswordComponent
           id="password"
           label="Password"
-          valueSetter={(value) => setSignin({ ...signin, password: value })}
+          valueSette={(value) => setSignin({ ...signin, password: value })}
           size="small"
-          valueGetter={signin.password}
+          valueGette={signin.password}
+          type="password"
         />
         <button className={styles.btn} onClick={() => handleSignin()}>
           Sign in
