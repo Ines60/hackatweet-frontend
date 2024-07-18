@@ -1,7 +1,9 @@
 import styles from "../styles/Tweet.module.css";
 import { useState, useEffect } from "react";
 import Message from "./Message";
-import { useSelector } from "react-redux";
+import Hashtags from "./Hastags";
+import { useDispatch, useSelector } from "react-redux";
+import { message, deleteTweet } from "../reducers/tweet";
 import moment from "moment";
 import "moment/locale/fr";
 
@@ -9,23 +11,23 @@ function Tweet() {
   const [tweet, setTweet] = useState([]);
   const [refreshTweet, setRefreshTweet] = useState(false);
   false;
-  const [refresh, setRefresh] = useState(false);
+  //const [refresh, setRefresh] = useState(false);
   const [newTweet, setNewTweet] = useState([]);
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  console.log(user);
 
   useEffect(() => {
     fetch("http://localhost:3000/tweet/")
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
+        dispatch(message(data.tweet));
         setTweet(data.tweet);
       });
-  }, [refreshTweet, refresh]);
-  console.log("teweet is ", tweet);
+  }, [refreshTweet, dispatch]);
 
   const reverseTweets = [...tweet].reverse();
-
   const handleDeleteTweet = (id) => {
     fetch(`http://localhost:3000/tweet/deleteTweet/${id}`, {
       method: "DELETE",
@@ -36,13 +38,11 @@ function Tweet() {
   };
 
   const handleLikedTweet = (id) => {
-    console.log("Parents is ok");
     fetch(`http://localhost:3000/tweet/incrementLike/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),
     }).then((response) => {
-      console.log("data is ", response);
       const isLikedByUser = response.ok;
 
       if (isLikedByUser) {
@@ -51,11 +51,13 @@ function Tweet() {
         console.log("User not inclus");
       }
 
-      setRefresh(!refresh);
+      setRefreshTweet(!refreshTweet);
     });
   };
 
   const listTweet = reverseTweets.map((tweets, i) => {
+    //console.log("tweets is ", tweets);
+
     return (
       <Message
         key={i}
@@ -85,7 +87,7 @@ function Tweet() {
       .then((response) => response.json())
       .then((data) => {
         setNewTweet("");
-        setRefresh(!refresh);
+        setRefreshTweet(!refreshTweet);
       });
   };
 

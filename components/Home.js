@@ -1,6 +1,7 @@
 import styles from "../styles/Home.module.css";
 import Profil from "./Profil";
 import Tweet from "./Tweet";
+import Hastags from "./Hastags";
 
 function Home() {
   return (
@@ -12,7 +13,7 @@ function Home() {
         <Tweet />
       </div>
       <div className={styles.containerHastag}>
-        <p>Hastag</p>
+        <Hastags />
       </div>
     </div>
   );

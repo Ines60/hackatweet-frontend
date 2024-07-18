@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hashtag {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(183 174 174 / 10%);
+  width: 450px;
+  padding-left: 10px;
+  border-radius: 10px;
+}
+
+.li {
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.hash {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.count {
+  font-size: 13px;
+}
+
+.title {
+  color: white;
+  font-size: 35px;
+  padding-left: 20px;
+}

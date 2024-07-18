@@ -20,10 +20,9 @@ function Message({
   };
 
   const handleLike = () => {
-    console.log("Enfants is OK");
     handleLikedTweet(id);
   };
-  console.log("like ", like);
+
   const timeDifferenceText = moment(date).fromNow();
 
   return (
