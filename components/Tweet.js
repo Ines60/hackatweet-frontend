@@ -93,7 +93,7 @@ function Tweet() {
 
   return (
     <div className={styles.main}>
-      <h1 className={`${styles.text} ${styles.title}`}>Home</h1>
+      <h2 className={`${styles.text} ${styles.title}`}>Home</h2>
       <div className={styles.containerText}>
         <textarea
           className={styles.textarea}
