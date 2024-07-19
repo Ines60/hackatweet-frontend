@@ -4,6 +4,7 @@
   width: 100%;
   padding: 0px 15px 10px 15px;
 }
+
 .profil {
   display: flex;
   gap: 15px;
@@ -12,6 +13,7 @@
 .avatar {
   border-radius: 50px;
   width: 55px;
+  border: 2px solid #667588;
 }
 
 .icon {

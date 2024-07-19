@@ -28,7 +28,7 @@ function Message({
   return (
     <div className={styles.main} style={style}>
       <div className={styles.profil}>
-        <img className={styles.avatar} src={"/avatar-1.jpg"} alt="Avatar" />
+        <img className={styles.avatar} src={`https://robohash.org/${username}.png`} alt="Avatar" />
         <p>
           {firstname} @{username} . {timeDifferenceText}
         </p>

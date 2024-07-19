@@ -19,7 +19,7 @@ function Profil() {
       <img className={styles.logo} src={"/rettiwt.png"} alt="Logo" />
       <div>
         <div className={styles.containerAvatar}>
-          <img className={styles.avatar} src={"/avatar-1.jpg"} alt="Avatar" />
+          <img className={styles.avatar} src={`https://robohash.org/${user.username}.png`} alt="Avatar" />
 
           <div className={styles.containerInfo}>
             <span className={styles.firstname}>{user.firstname}</span>
