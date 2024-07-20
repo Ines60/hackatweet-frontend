@@ -71,6 +71,7 @@
   border-radius: 50px;
   color: white;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .btnUp {

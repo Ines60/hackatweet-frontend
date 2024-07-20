@@ -4,11 +4,17 @@
   height: 100%;
 }
 
+.title {
+  color: white;
+  font-size: 35px;
+  padding-left: 20px;
+}
+
 .hashtag {
   display: flex;
   flex-direction: column;
   background-color: rgb(183 174 174 / 10%);
-  width: 450px;
+  width: 400px;
   padding-left: 10px;
   border-radius: 10px;
 }
@@ -22,14 +28,74 @@
 .hash {
   font-weight: 600;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .count {
   font-size: 13px;
+  color: rgb(177, 174, 174);
 }
 
-.title {
+.modal {
+  width: 400px;
   color: white;
-  font-size: 35px;
-  padding-left: 20px;
+  background-color: #151d27;
+  position: absolute;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #151d27;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+  width: 500px;
+  height: 500px;
+}
+
+/* Fond modal */
+/* .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backgroundcolor: rgba(0, 0, 0, 0.5);
+} */
+
+.messages {
+  overflow-y: auto;
+  scrollbar-color: transparent;
+  scrollbar-width: thin;
+  height: 350px;
+}
+
+.containerHash {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  background-color: rgb(183 174 174 / 0.2);
+  border: 1px rgb(255, 255, 255, 0.5) solid;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.profil {
+  display: flex;
+  gap: 15px;
+}
+
+.avatar {
+  border-radius: 50px;
+  width: 55px;
+  border: 2px solid #acb1b9ab;
+}
+
+/* .info {
+  padding-top: 15px;
+} */
+
+.icon {
+  padding-right: 350px;
 }

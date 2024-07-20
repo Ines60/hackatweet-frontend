@@ -11,6 +11,7 @@ import { login } from "../reducers/user";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextFieldComponent from "./TextFieldComponent";
+import PasswordComponent from "./PasswordInput";
 
 function Signup(props) {
   const dispatch = useDispatch();
@@ -61,10 +62,8 @@ function Signup(props) {
           userName: "",
           password: "",
         });
-        setMessage(<FontAwesomeIcon icon={faCheck} />);
+
         router.push("/acceuil");
-      } else {
-        setMessage("L'username est déjà utilisé ! ");
       }
     }
   };
@@ -82,6 +81,7 @@ function Signup(props) {
           icon={faXmark}
           color="white"
           size="lg"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <img className={styles.logo} src={"/rettiwt.png"} alt="Logo" />
@@ -101,15 +101,15 @@ function Signup(props) {
           size="small"
           valueGetter={signup.userName}
         />
-        <TextFieldComponent
+        <PasswordComponent
           id="password"
           label="Password"
-          valueSetter={(value) => setSignup({ ...signup, password: value })}
+          valueSette={(value) => setSignup({ ...signup, password: value })}
           size="small"
-          valueGetter={signup.password}
+          valueGette={signup.password}
         />
         <button className={styles.btn} onClick={() => handleSignup()}>
-          S'inscrire
+          Sign up
         </button>
       </div>
     </div>

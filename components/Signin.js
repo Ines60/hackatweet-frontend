@@ -13,8 +13,8 @@ function Signin(props) {
   const router = useRouter();
 
   const [signin, setSignin] = useState({
-    userName: "nes",
-    password: "Lololo.11",
+    userName: "",
+    password: "",
   });
 
   const handleSignin = async () => {
@@ -64,6 +64,7 @@ function Signin(props) {
           icon={faXmark}
           color="white"
           size="lg"
+          style={{ cursor: "pointer" }}
         />
       </div>
       <img className={styles.logo} src={"/rettiwt.png"} alt="Logo" />

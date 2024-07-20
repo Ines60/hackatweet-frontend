@@ -28,9 +28,18 @@ function Message({
   return (
     <div className={styles.main} style={style}>
       <div className={styles.profil}>
-        <img className={styles.avatar} src={`https://robohash.org/${username}.png`} alt="Avatar" />
+        <img
+          className={styles.avatar}
+          src={`https://robohash.org/${username}.png`}
+          alt="Avatar"
+        />
         <p>
-          {firstname} @{username} . {timeDifferenceText}
+          <span style={{ fontSize: "20px" }}> {firstname}</span>{" "}
+          <span style={{ fontSize: "15px", color: "lightgray" }}>
+            {" "}
+            @{username}
+          </span>{" "}
+          . {timeDifferenceText}
         </p>
       </div>
       <div>
@@ -42,7 +51,7 @@ function Message({
               icon={faHeart}
               color={likedBy ? "red" : "white"}
               size="15px"
-              style={{ paddingTop: "5px" }}
+              style={{ paddingTop: "5px", cursor: "pointer" }}
             />
             {like}
           </div>
@@ -51,6 +60,7 @@ function Message({
             icon={faTrash}
             color="white"
             size="15px"
+            style={{ cursor: "pointer" }}
           />
         </div>
       </div>

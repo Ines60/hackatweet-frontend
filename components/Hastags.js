@@ -1,26 +1,43 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "react-modal";
 import styles from "../styles/Hastags.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function Hastags() {
-  const tweet = useSelector((state) => state.tweet.value);
-  //console.log("Tweet is ", tweet);
+function Hastags({}) {
+  const tweets = useSelector((state) => state.tweet.value);
+  const user = useSelector((state) => state.user.value);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filteredMessages, setFilteredMessages] = useState([]);
+  const [currentHashtag, setCurrentHashtag] = useState("");
+  const [refresh, setRefresh] = useState(false);
+
   let pattern = /#\w+/g;
-
   let hashtagCounts = {};
+
+  const handleLikedTweet = (id) => {
+    fetch(`http://localhost:3000/tweet/incrementLike/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: user.token }),
+    }).then((response) => {
+      setRefresh(!refresh);
+    });
+  };
 
   const capitalizeFirstLetter = (str) => {
     return str.charAt(1).toUpperCase() + str.slice(2);
   };
 
-  console.log(capitalizeFirstLetter("test"));
-
-  tweet.forEach((message) => {
+  tweets.forEach((message) => {
     const hashTagsInMessage = message.message.match(pattern);
     if (hashTagsInMessage) {
-      hashTagsInMessage.forEach((hashtag) => {
-        const lowerCaseHashtag = hashtag.toLowerCase();
-        const formattedHashtag = capitalizeFirstLetter(lowerCaseHashtag);
-        console.log("formatted is : ", formattedHashtag);
+      let uniqueHashtags = new Set(
+        hashTagsInMessage.map((ht) => ht.toLowerCase())
+      );
+      uniqueHashtags.forEach((hashtag) => {
+        const formattedHashtag = capitalizeFirstLetter(hashtag);
         if (hashtagCounts[formattedHashtag]) {
           hashtagCounts[formattedHashtag]++;
         } else {
@@ -30,9 +47,27 @@ function Hastags() {
     }
   });
 
+  const handleHashtagClick = (hashtag) => {
+    setCurrentHashtag(hashtag);
+    const lowerCaseHashtag = `#${hashtag
+      .charAt(0)
+      .toLowerCase()}${hashtag.slice(1)}`;
+    const messagesWithHashtag = tweets.filter((message) => {
+      return message.message.toLowerCase().includes(lowerCaseHashtag);
+    });
+
+    setFilteredMessages(messagesWithHashtag);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const hashtagList = Object.keys(hashtagCounts).map((hashtag, index) => (
     <p className={styles.li} key={index}>
-      <span className={styles.hash}> {hashtag}</span>{" "}
+      <span className={styles.hash} onClick={() => handleHashtagClick(hashtag)}>
+        {hashtag}
+      </span>
       <span className={styles.count}> {hashtagCounts[hashtag]} Tweets</span>
     </p>
   ));
@@ -43,6 +78,58 @@ function Hastags() {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div className={styles.hashtag}>{hashtagList}</div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Hashtag Messages"
+        className={styles.modal}
+        overlayClassName={styles.overlay}
+      >
+        <FontAwesomeIcon
+          onClick={closeModal}
+          icon={faXmark}
+          size="lg"
+          style={{ cursor: "pointer" }}
+        />
+        <h2>
+          Messages with{" "}
+          <span style={{ color: "rgb(177, 174, 174)" }}>
+            {" "}
+            #{currentHashtag}
+          </span>{" "}
+          :
+        </h2>
+        <div className={styles.messages}>
+          {filteredMessages.map((message, i) => (
+            <div className={styles.containerHash} key={i}>
+              <div className={styles.profil}>
+                <img
+                  className={styles.avatar}
+                  src={`https://robohash.org/${user.username}.png`}
+                  alt="Avatar"
+                />
+                <p className={styles.info}>
+                  {" "}
+                  <span style={{ fontSize: "17px" }}>
+                    {message.user.firstName}
+                  </span>{" "}
+                  <span style={{ fontSize: "12px", color: "lightgray" }}>
+                    @{message.user.userName}
+                  </span>
+                </p>
+              </div>
+              <span style={{ paddingLeft: "70px" }}>{message.message}</span>
+              <FontAwesomeIcon
+                onClick={() => handleLikedTweet(tweets._id)}
+                icon={faHeart}
+                className={styles.icon}
+                color={message.likeBy.includes(user.token) ? "red" : "white"}
+              />
+            </div>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 }

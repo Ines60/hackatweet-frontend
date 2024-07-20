@@ -23,6 +23,7 @@
 .avatar {
   border-radius: 50%;
   width: 60px;
+  border: 2px solid #667588;
 }
 
 .containerInfo {
@@ -50,4 +51,5 @@
   border: 1px solid white;
   color: white;
   font-weight: 700;
+  cursor: pointer;
 }

@@ -5,6 +5,7 @@ import {
   OutlinedInput,
   IconButton,
   InputAdornment,
+  FormHelperText,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -17,6 +18,21 @@ export default function PasswordComponent({
   size,
 }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+  const validatePassword = (password) => {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasMinLength = password.length >= 8;
+    return hasUpperCase && hasSpecialChar && hasMinLength;
+  };
+
+  const handleChange = (e) => {
+    const newPassword = e.target.value;
+    valueSette(newPassword);
+    setIsPasswordValid(validatePassword(newPassword));
+  };
+
   return (
     <FormControl variant="outlined" size={size}>
       <InputLabel
@@ -30,24 +46,24 @@ export default function PasswordComponent({
         type={showPassword ? "text" : "password"}
         sx={{
           "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffffff", // Bordure blanche
+            borderColor: "#ffffff",
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffffff", // Bordure blanche au survol
+            borderColor: "#ffffff",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ffffff", // Bordure blanche en focus
+            borderColor: "#ffffff",
           },
           "& .MuiInputLabel-outlined": {
-            color: "#fcfcff", // Couleur du label en blanc
+            color: "#fcfcff",
           },
           "& .MuiOutlinedInput-input": {
-            color: "#fcfcff", // Couleur du texte en blanc
+            color: "#fcfcff",
           },
           "& .MuiInputAdornment-root .MuiIconButton-root": {
-            color: "#fcfcff", // Couleur de l'IconButton en blanc
+            color: "#fcfcff",
             "&:hover": {
-              backgroundColor: "transparent", // Fond transparent au survol
+              backgroundColor: "transparent",
             },
           },
         }}
@@ -61,9 +77,9 @@ export default function PasswordComponent({
               }}
               edge="end"
               sx={{
-                color: "#fcfcff", // Couleur de l'IconButton
+                color: "#fcfcff",
                 "&:hover": {
-                  backgroundColor: "transparent", // Fond transparent au survol
+                  backgroundColor: "transparent",
                 },
               }}
             >
@@ -72,9 +88,15 @@ export default function PasswordComponent({
           </InputAdornment>
         }
         label={label}
-        onChange={(e) => valueSette(e.target.value)}
+        onChange={handleChange}
         value={typeof valueGette === "string" ? valueGette : ""}
       />
+      {!isPasswordValid && (
+        <FormHelperText error>
+          Must contain 8 characters, including an uppercase letter and a
+          character special.
+        </FormHelperText>
+      )}
     </FormControl>
   );
 }

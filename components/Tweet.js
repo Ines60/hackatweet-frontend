@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Message from "./Message";
 import Hashtags from "./Hastags";
 import { useDispatch, useSelector } from "react-redux";
-import { message, deleteTweet } from "../reducers/tweet";
+import { message } from "../reducers/tweet";
 import moment from "moment";
 import "moment/locale/fr";
 
@@ -13,7 +13,7 @@ function Tweet() {
   false;
   //const [refresh, setRefresh] = useState(false);
   const [newTweet, setNewTweet] = useState([]);
-
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
 
@@ -21,7 +21,6 @@ function Tweet() {
     fetch("http://localhost:3000/tweet/")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         dispatch(message(data.tweet));
         setTweet(data.tweet);
       });
@@ -32,7 +31,8 @@ function Tweet() {
     fetch(`http://localhost:3000/tweet/deleteTweet/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-    }).then(() => {
+      body: JSON.stringify({ token: user.token }),
+    }).then((response) => {
       setRefreshTweet(!refreshTweet);
     });
   };
@@ -56,8 +56,6 @@ function Tweet() {
   };
 
   const listTweet = reverseTweets.map((tweets, i) => {
-    //console.log("tweets is ", tweets);
-
     return (
       <Message
         key={i}
@@ -79,15 +77,42 @@ function Tweet() {
     );
   });
   const handleNewTweet = () => {
+    setErrorMessage("");
+
+    if (newTweet.trim() === "") {
+      setErrorMessage("Message cannot be empty. Please enter a valid message.");
+      return;
+    }
+
     fetch("http://localhost:3000/tweet/newTweet", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token, message: newTweet }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          // Vérifiez si le serveur a renvoyé une réponse d'erreur
+          return response.json().then((data) => {
+            throw new Error(data.error || "Server error occurred.");
+          });
+        }
+        return response.json();
+      })
       .then((data) => {
         setNewTweet("");
-        setRefreshTweet(!refreshTweet);
+        setRefreshTweet((prev) => !prev);
+        setErrorMessage("");
+      })
+      .catch((error) => {
+        // Affichez un message d'erreur personnalisé basé sur le type d'erreur
+        if (error.message.includes("NetworkError")) {
+          setErrorMessage(
+            "Network error occurred. Please check your internet connection."
+          );
+        } else {
+          setErrorMessage(error.message);
+        }
+        console.error("Error while posting new tweet:", error);
       });
   };
 
@@ -95,6 +120,9 @@ function Tweet() {
     <div className={styles.main}>
       <h2 className={`${styles.text} ${styles.title}`}>Home</h2>
       <div className={styles.containerText}>
+        {errorMessage && (
+          <div className={styles.errorMessage}>{errorMessage}</div>
+        )}
         <textarea
           className={styles.textarea}
           onChange={(e) => setNewTweet(e.target.value)}
