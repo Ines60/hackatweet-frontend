@@ -7,6 +7,7 @@ import { login } from "../reducers/user";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { backendURL } from "../pages/_app";
 
 function Signin(props) {
   const dispatch = useDispatch();
@@ -31,10 +32,9 @@ function Signin(props) {
         password: signin.password,
       }),
     };
-    const response = await fetch(
-      "http://localhost:3000/users/signin",
-      options
-    ).then((response) => response.json());
+    const response = await fetch(`${backendURL}/users/signin`, options).then(
+      (response) => response.json()
+    );
 
     if (response.result) {
       dispatch(

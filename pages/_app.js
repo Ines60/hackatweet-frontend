@@ -8,6 +8,8 @@ import storage from "redux-persist/lib/storage";
 import user from "../reducers/user";
 import tweet from "../reducers/tweet";
 
+const backendURL = "https://hackatweet-backend-hazel.vercel.app";
+
 const reducers = combineReducers({ user, tweet });
 const persistConfig = { key: "hackatweet", storage };
 
@@ -31,4 +33,5 @@ function App({ Component, pageProps }) {
   );
 }
 
+export { backendURL };
 export default App;

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-modal";
 import styles from "../styles/Hastags.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { backendURL } from "../pages/_app";
+import { addHastags } from "../reducers/tweet";
 
 function Hastags({}) {
   const tweets = useSelector((state) => state.tweet.value);
@@ -12,19 +14,27 @@ function Hastags({}) {
   const [filteredMessages, setFilteredMessages] = useState([]);
   const [currentHashtag, setCurrentHashtag] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const dispatch = useDispatch();
+
+  //console.log("Tweets is ", tweets);
+  //console.log("rerender");
 
   let pattern = /#\w+/g;
   let hashtagCounts = {};
-
-  const handleLikedTweet = (id) => {
-    fetch(`http://localhost:3000/tweet/incrementLike/${id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: user.token }),
-    }).then((response) => {
-      setRefresh(!refresh);
-    });
-  };
+  // Pas réussi a gerer les likes dan sla modal, a revoir
+  // const handleLikedTweet = (id) => {
+  //   console.log("id is", id);
+  //   fetch(`${backendURL}/tweet/incrementLike/${id}`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ token: user.token }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("data is", data);
+  //       setRefresh(!refresh);
+  //     });
+  // };
 
   const capitalizeFirstLetter = (str) => {
     return str.charAt(1).toUpperCase() + str.slice(2);
@@ -55,9 +65,10 @@ function Hastags({}) {
     const messagesWithHashtag = tweets.filter((message) => {
       return message.message.toLowerCase().includes(lowerCaseHashtag);
     });
-
+    console.log("filtered message is ", filteredMessages);
     setFilteredMessages(messagesWithHashtag);
     setIsModalOpen(true);
+    setRefresh(!refresh);
   };
   const closeModal = () => {
     setIsModalOpen(false);
@@ -121,7 +132,6 @@ function Hastags({}) {
               </div>
               <span style={{ paddingLeft: "70px" }}>{message.message}</span>
               <FontAwesomeIcon
-                onClick={() => handleLikedTweet(tweets._id)}
                 icon={faHeart}
                 className={styles.icon}
                 color={message.likeBy.includes(user.token) ? "red" : "white"}

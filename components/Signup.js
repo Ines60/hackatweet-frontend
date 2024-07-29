@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextFieldComponent from "./TextFieldComponent";
 import PasswordComponent from "./PasswordInput";
+import { backendURL } from "../pages/_app";
 
 function Signup(props) {
   const dispatch = useDispatch();
@@ -44,10 +45,9 @@ function Signup(props) {
           password: signup.password,
         }),
       };
-      const response = await fetch(
-        "http://localhost:3000/users/signup",
-        options
-      ).then((response) => response.json());
+      const response = await fetch(`${backendURL}/users/signup`, options).then(
+        (response) => response.json()
+      );
 
       if (response.result) {
         dispatch(

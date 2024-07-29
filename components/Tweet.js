@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { message } from "../reducers/tweet";
 import moment from "moment";
 import "moment/locale/fr";
+import { backendURL } from "../pages/_app";
 
 function Tweet() {
+  //console.log("back url is:", backendURL);
   const [tweet, setTweet] = useState([]);
   const [refreshTweet, setRefreshTweet] = useState(false);
   false;
@@ -18,7 +20,7 @@ function Tweet() {
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tweet/")
+    fetch(`${backendURL}/tweet/`)
       .then((response) => response.json())
       .then((data) => {
         dispatch(message(data.tweet));
@@ -28,7 +30,7 @@ function Tweet() {
 
   const reverseTweets = [...tweet].reverse();
   const handleDeleteTweet = (id) => {
-    fetch(`http://localhost:3000/tweet/deleteTweet/${id}`, {
+    fetch(`${backendURL}/tweet/deleteTweet/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),
@@ -38,7 +40,7 @@ function Tweet() {
   };
 
   const handleLikedTweet = (id) => {
-    fetch(`http://localhost:3000/tweet/incrementLike/${id}`, {
+    fetch(`${backendURL}/tweet/incrementLike/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token }),
@@ -84,7 +86,7 @@ function Tweet() {
       return;
     }
 
-    fetch("http://localhost:3000/tweet/newTweet", {
+    fetch(`${backendURL}/tweet/newTweet`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token: user.token, message: newTweet }),
